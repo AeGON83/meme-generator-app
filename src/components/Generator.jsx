@@ -48,7 +48,7 @@ export default function Generator({ data }) {
             <div className="header-bar">
                 <div></div>
                 <h3>Meme Generator</h3>
-                <p><i class="fab fa-react"></i> - Project 3</p>
+                <p><a target="_blank" href="https://reactjs.org/"><i class="fab fa-react"></i></a><a target="_blank" href="https://github.com/AeGON83/meme-generator-app"><i class="fab fa-github-square"></i></a><a target="_blank" href="https://aegon83.github.io/RajanMakwana/"><i class="fas fa-user"></i></a></p>
             </div>
             <div className="input-form">
                 <div className="inputs">

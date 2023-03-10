@@ -43,18 +43,41 @@
 .header-bar p {
   display: flex;
   align-items: center;
+  align-content: space-around;
+  width: 100px;
   margin-left: auto;
   padding: 15px;
   font-weight: 500;
   position: relative;
-  left: -20px;
+  left: -1.7%;
 }
 
-.fa-react {
-  color: cyan;
-  margin: 5px;
-  font-size: xx-large;
+
+.header-bar p a {
+  color: white;
+  margin: 6px;
+  font-size: x-large;
+  transition: 0.2s ease-in-out;
 }
+
+.header-bar p a:hover {
+  color: palegoldenrod;
+  scale: 1.2;
+}
+
+.header-bar p a:nth-child(3) {
+  font-size: large;
+}
+
+/* .fa-react {
+  font-size: x-large;
+  transition: 0.2s ease-in-out;
+}
+
+.fa-react:hover {
+  color: palegoldenrod;
+  scale: 1.2;
+} */
 
 .input-form {
   position: relative;
