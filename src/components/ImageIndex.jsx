@@ -1,7 +1,7 @@
-export default function ImageIndex({ data }) {
+export default function ImageIndex({ data, handleClick }) {
     const imgArr = data.map((item, index) => {
         return (
-            <div className="ref-img-mini-container" key={item.url}>
+            <div className="ref-img-mini-container" id={index} onClick={() => handleClick()}>
                 <p className="index-of-img">{index + 1}</p>
                 <img className="ref-img" src={item.url} alt="img not found" ></img>
             </div>
