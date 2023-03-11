@@ -1,68 +1,83 @@
 import React from "react"
 import downloadImage from "./downloadImg"
-import ImageIndex from "./ImageIndex"
 
-export default function Generator({ data }) {
+export default function Generator() {
 
-    var [meme, setMeme] = React.useState({
+    const [allMemes, setAllMemes] = React.useState();
+    const [isMemesLoaded, setIsMemesLoaded] = React.useState(false);
+
+    React.useEffect(() => {
+        fetch("https://api.imgflip.com/get_memes")
+            .then((res) => res.json())
+            .then((data) => {
+                setAllMemes(data.data.memes);
+                setIsMemesLoaded(true);
+            });
+    }, []);
+
+    const [meme, setMeme] = React.useState({
         upperText: "Add",
         lowerText: "Text",
-        imgIndex: Math.floor(Math.random() * data.length),
-        randomImg: data[65].url
-    })
+        randomImg: "",
+    });
+
+    React.useEffect(() => {
+        if (isMemesLoaded) {
+            setMeme((prevMeme) => ({
+                ...prevMeme,
+                randomImg: allMemes[65].url,
+            }));
+        }
+    }, [isMemesLoaded]);
 
     function handleChange(event) {
-        setMeme((prevMeme) => {
-            return {
-                ...prevMeme,
-                [event.target.name]: event.target.value
-
-            }
-        })
+        setMeme((prevMeme) => ({
+            ...prevMeme,
+            [event.target.name]: event.target.value,
+        }));
     }
 
     function generateImgUrl() {
-        setMeme(prevMeme => {
-            return {
-                ...prevMeme,
-                randomImg: data[Math.floor(Math.random() * data.length)].url
-            }
-        })
+        setMeme((prevMeme) => ({
+            ...prevMeme,
+            randomImg: allMemes[Math.floor(Math.random() * allMemes.length)].url,
+        }));
     }
+
     function handleChangeOfImg(event) {
-        var value
-        if (event.target.value == '') {
-            value = data[65].url
+        var value;
+        if (event.target.value === "") {
+            value = allMemes[65].url;
+        } else {
+            value = allMemes[event.target.value - 1].url;
         }
-        else {
-            value = data[event.target.value - 1].url
-        }
-        setMeme(prevMeme => {
-            return {
-                ...prevMeme,
-                randomImg: value
-            }
-        })
+        setMeme((prevMeme) => ({
+            ...prevMeme,
+            randomImg: value,
+        }));
     }
+
     function changeImgOnClick(event) {
-        var value = data[event.target.alt].url
-        setMeme(prevMeme => {
-            return {
-                ...prevMeme,
-                randomImg: value
-            }
-        })
-
+        var value = allMemes[event.target.alt].url;
+        setMeme((prevMeme) => ({
+            ...prevMeme,
+            randomImg: value,
+        }));
     }
 
-    const imgArr = data.map((item, index) => {
-        return (
+    const imgArr = isMemesLoaded
+        ? allMemes.map((item, index) => (
             <div className="ref-img-mini-container" key={index}>
                 <p className="index-of-img">{index + 1}</p>
-                <img className="ref-img" src={item.url} alt={index} onClick={changeImgOnClick} ></img>
+                <img
+                    className="ref-img"
+                    src={item.url}
+                    alt={index}
+                    onClick={changeImgOnClick}
+                />
             </div>
-        )
-    })
+        ))
+        : null;
     return (
         <div className="main-generator">
             <div className="header-bar">
