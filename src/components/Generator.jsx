@@ -1,5 +1,6 @@
 import React from "react"
 import downloadImage from "./downloadImg"
+import defaultImg from "../assets/default-meme.png"
 
 export default function Generator() {
 
@@ -16,19 +17,19 @@ export default function Generator() {
     }, []);
 
     const [meme, setMeme] = React.useState({
-        upperText: "Add",
-        lowerText: "Text",
-        randomImg: "",
+        upperText: "He said",
+        lowerText: "He loves Java",
+        randomImg: defaultImg
     });
 
-    React.useEffect(() => {
-        if (isMemesLoaded) {
-            setMeme((prevMeme) => ({
-                ...prevMeme,
-                randomImg: allMemes[65].url,
-            }));
-        }
-    }, [isMemesLoaded]);
+    // React.useEffect(() => {
+    //     if (isMemesLoaded) {
+    //         setMeme((prevMeme) => ({
+    //             ...prevMeme,
+    //             randomImg: allMemes[65].url,
+    //         }));
+    //     }
+    // }, [isMemesLoaded]);
 
     function handleChange(event) {
         setMeme((prevMeme) => ({
@@ -47,7 +48,7 @@ export default function Generator() {
     function handleChangeOfImg(event) {
         var value;
         if (event.target.value === "") {
-            value = allMemes[65].url;
+            value = defaultImg;
         } else {
             value = allMemes[event.target.value - 1].url;
         }
