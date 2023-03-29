@@ -18,7 +18,7 @@ export default function Generator() {
 
     const [meme, setMeme] = React.useState({
         upperText: "He said",
-        lowerText: "He loves Java",
+        lowerText: "He likes Java",
         randomImg: defaultImg
     });
 
